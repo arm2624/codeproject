@@ -1,0 +1,30 @@
+#include <Servo.h>
+
+#define trigPin 2
+#define echoPin 3
+#define servoPin 4
+
+Servo servo;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  servo.attach(servoPin);
+  Serial.begin(9600);
+}
+
+void loop() {
+  long duration, distance;
+  
+  // Mengirim pulsa ultrasonik
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Membaca waktu perjalanan pulsa ultrasonik
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Menghitung jarak dalam centimeter
+  distance = (duration / 2) / 29.1;
